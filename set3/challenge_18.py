@@ -12,9 +12,8 @@ def split_block(s,length):
 def xor(a,b):
     return bytes([a0^b0 for a0,b0 in zip(a,b)])
 
-def little_endian(s,length):
-    s = s.decode('utf-8')
-    return '{:\x00<8}'.format(s)[::-1].encode('utf-8')
+def little_endian(count,length):
+    return b"\xff" * (count // 256) + bytes([count % 256]) + b"\x00" * (length - count//256 - 1)
 
 class CTR_mode: 
     def __init__(self,nonce,key):
@@ -23,12 +22,12 @@ class CTR_mode:
     def encrypt(self,s):
         s = split_block(s,16)
         encode = b"" 
-        count = b"\x00" * 8
+        count = 0
         for s_block  in s : 
-            Counter = self.nonce + count
+            Counter = self.nonce + little_endian(count,8)
             cipher = AES.new(self.key,AES.MODE_ECB)
             encode += xor(cipher.encrypt(Counter),s_block)
-            count = little_endian(long_to_bytes(bytes_to_long(count) + 1),8)
+            count += 1 
         return encode 
     def decrypt(self,s):
         s = split_block(s,16)
