@@ -32,12 +32,12 @@ class CTR_mode:
     def decrypt(self,s):
         s = split_block(s,16)
         decode = b"" 
-        count = b"\x00" * 8
+        count = 0
         for s_block  in s : 
-            Counter = nonce + count 
-            cipher = AES.new(key,AES.MODE_ECB)
+            Counter = self.nonce + little_endian(count,8) 
+            cipher = AES.new(self.key,AES.MODE_ECB)
             decode += xor(cipher.encrypt(Counter),s_block)
-            count = little_endian(long_to_bytes(bytes_to_long(count) + 1),8)
+            count += 1 
         return decode
 
 if __name__ =='__main__':
