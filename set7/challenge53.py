@@ -1,4 +1,5 @@
-''' paper : https://link.springer.com/content/pdf/10.1007%2F11426639_28.pdf ''' 
+''' paper : https://link.springer.com/content/pdf/10.1007%2F11426639_28.pdf
+challenge53 - 54 i just write psuedo code , can't run ''' 
 from Crypto.Cipher import AES 
 from os import urandom
 from base64 import b64encode 
