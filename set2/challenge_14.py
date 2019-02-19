@@ -55,9 +55,9 @@ def next_bytes(knowbytes,encrypt_oracle):
         encode_s_guess = encrypt_oracle(string_guess)
         if encode_s_guess[:len(string_guess) ] == encode_s[:len(string_guess)]:
             return bytes([ch])
-            
-if __name__ == '__main__':
-    key = urandom(16)
+key = urandom(16)          
+def attack():
+    
     print("[*] detect keysize........")
     KEYSIZE = length_detect(encrypt_oracle)
     print("KEYSIZE = %d" % KEYSIZE)
@@ -76,5 +76,4 @@ if __name__ == '__main__':
     knowbytes = b""
     for i in range(len_target):
         knowbytes += next_bytes(knowbytes,encrypt_oracle)
-    assert knowbytes == targets_bytes
-    print(knowbytes)
+    return knowbytes 
