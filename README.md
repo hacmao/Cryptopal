@@ -5,4 +5,4 @@ Where i can challenge my brain and get more fun .
 print "hello"
 ```
 hello .
-<Enter> ahaha
+<Enter> ahaha <Enter> lol
